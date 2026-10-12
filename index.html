@@ -136,6 +136,7 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
   .tag{grid-template-columns:64px minmax(0,1fr)} .tag svg{width:64px;height:64px}
 }
 @media (prefers-reduced-motion:reduce){.receipt{animation:none}.tag{transition:none}}
+.alt-link{display:inline-flex;align-items:center;border-radius:10px;padding:12px 16px;font:600 15px var(--f-body);background:#E2CFA6;color:var(--ink);text-decoration:none}
 </style>
 
 <canvas id="leaves" aria-hidden="true"></canvas>
@@ -163,8 +164,7 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
         <div class="choice">Ваш выбор: <span id="chosen">—</span> <button type="button" id="change">Сменить</button></div>
       </div>
       <form id="form" novalidate autocomplete="off">
-        <div class="f"><label for="lastName">Фамилия</label><input type="text" id="lastName" name="lastName" autocomplete="off" autocapitalize="words"><span class="hint"></span></div>
-        <div class="f"><label for="firstName">Имя</label><input type="text" id="firstName" name="firstName" autocomplete="off" autocapitalize="words"><span class="hint"></span></div>
+        <div class="f wide"><label for="fullName">Фамилия и имя</label><input type="text" id="fullName" name="fullName" autocomplete="off" autocapitalize="words" placeholder="Иванова Анна"><span class="hint"></span></div>
         <div class="f"><label for="email">Email</label><input type="email" id="email" name="email" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="hint"></span></div>
         <div class="f"><label for="company">Компания</label><input type="text" id="company" name="company" autocomplete="off"><span class="hint"></span></div>
         <div class="f"><label for="position">Должность</label><input type="text" id="position" name="position" autocomplete="off"><span class="hint"></span></div>
@@ -180,11 +180,11 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
           <span class="hint"></span>
         </fieldset>
         <div class="f wide">
-          <label class="consent"><input type="checkbox" id="consent" name="consent"><span>Согласен(на) на обработку персональных данных и получение информационных писем Solar Staff в соответствии с <button type="button" class="linkish" id="openPolicy">политикой обработки данных</button>.</span></label>
+          <label class="consent"><input type="checkbox" id="consent" name="consent"><span>Даю <button type="button" class="linkish" id="openPolicy">согласие на обработку персональных данных</button> и получение информационных и рекламных рассылок Solar Staff.</span></label>
           <span class="hint"></span>
         </div>
         <p class="form-error" id="formError" hidden></p>
-        <button type="submit" class="pay">Оплатить знакомством</button>
+        <button type="submit" class="pay">Отправить</button>
       </form>
     </div>
   </section>
@@ -229,11 +229,12 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
 <dialog id="policyDlg"><div class="dlg">
   <h3>Обработка персональных данных</h3>
   <div class="policy" id="policyText">
-    <p>Заполняя форму, вы даёте согласие ООО «Солар Стафф» (Solar Staff) на обработку указанных персональных данных: фамилии, имени, email, названия компании, должности и ника в Telegram — для связи с вами, отправки информационных и рекламных материалов о сервисе и учёта участников мероприятия.</p>
-    <p>Согласие действует до его отзыва. Отозвать согласие или отписаться от писем можно в любой момент, написав на адрес, указанный в политике конфиденциальности на сайте solarstaff.ru.</p>
-    <p class="small">Текст-заглушка: перед мероприятием замените его на утверждённую юристами формулировку.</p>
+    <p>Отмечая галочку, вы даёте ООО «Солар Стафф Рус» (оператор) согласие на обработку персональных данных, указанных в форме: фамилии, имени, email, компании, должности и ника в Telegram.</p>
+    <p>Цели: связь с вами, отправка информационных и рекламных материалов, приглашений и опросов, учёт участников мероприятия. Данные могут обрабатываться автоматизированно и без автоматизации и передаваться подрядчикам оператора, в том числе CRM- и аналитическим сервисам.</p>
+    <p>Согласие действует до достижения целей обработки. Отписаться от рассылок или отозвать согласие можно письмом на <b>dpo@solarstaff.ru</b>.</p>
+    <p class="small">Полный текст — «Согласие на обработку персональных данных» от 21.07.2026 на сайте solarstaff.ru. Ссылка ниже открывается при наличии интернета.</p>
   </div>
-  <div class="btns"><button type="button" id="policyClose">Понятно</button></div>
+  <div class="btns"><a class="alt-link" href="https://solarstaff.ru/media/368/download/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%BF%D0%B4%D0%BD_ss_21.07.2026_rus.pdf?inline=1" target="_blank" rel="noopener">Открыть полный текст</a><button type="button" id="policyClose">Понятно</button></div>
 </div></dialog>
 
 <script>
@@ -277,14 +278,14 @@ const stall=$("#stall");
 GIFTS.forEach(g=>{
   const b=document.createElement("button");b.type="button";b.className="tag";b.id="gift-"+g.id;
   b.innerHTML=`${icon(g)}<div><h3>${g.name}</h3><p>${g.note}</p><span class="price">Цена: <b>1 знакомство</b></span></div>`;
-  b.addEventListener("click",()=>{chosen=g;$("#chosen").textContent=g.name;show("s-till");setTimeout(()=>$("#lastName").focus(),50)});
+  b.addEventListener("click",()=>{chosen=g;$("#chosen").textContent=g.name;show("s-till");setTimeout(()=>$("#fullName").focus(),50)});
   stall.appendChild(b);
 });
 $("#change").addEventListener("click",()=>show("s-stall"));
 
 /* ---- валидация ---- */
 const form=$("#form");
-const req=["lastName","firstName","email","company","position"];
+const req=["fullName","email","company","position"];
 function setErr(el,msg){const f=el.closest(".f");f.classList.toggle("err",!!msg);f.querySelector(".hint").textContent=msg||""}
 function validate(){
   let ok=true;
@@ -313,7 +314,7 @@ form.addEventListener("submit",e=>{
   const num=list.filter(r=>r.device===dev).length+1;
   const rec={id:uid(),created_at:new Date().toISOString(),device:dev,receipt:dev+"-"+String(num).padStart(4,"0"),
     event:CONFIG.EVENT,source:CONFIG.SOURCE_TAG,gift:chosen.name,
-    last_name:form.lastName.value.trim(),first_name:form.firstName.value.trim(),email,
+    full_name:form.fullName.value.trim().replace(/\s+/g," "),email,
     company:form.company.value.trim(),position:form.position.value.trim(),
     telegram:form.telegram.value.trim()?"@"+form.telegram.value.trim().replace(/^@/,""):"",
     team_size:form.querySelector("input[name=team]:checked").value,consent:true,synced:false,synced_at:null};
@@ -330,7 +331,7 @@ function renderReceipt(r){
   <div class="row"><span>${esc(r.gift)}</span><span>1 шт.</span></div>
   <div class="row"><span>Оплата</span><span>1 знакомство</span></div>
   <div class="rule"></div>
-  <div class="row"><b>Покупатель</b><span>${esc(r.first_name)} ${esc(r.last_name.charAt(0))}.</span></div>
+  <div class="row"><b>Покупатель</b><span>${esc(r.full_name)}</span></div>
   <div class="stamp">Тепло выдано</div>`;
   $("#giftLine").textContent=r.gift==="Попытка в хватайке"?"Ваша попытка в хватайке ждёт":"Заберите ваш "+r.gift.toLowerCase();
 }
@@ -381,7 +382,7 @@ $("#deviceName").addEventListener("change",e=>setDevice(e.target.value.trim()||"
 $("#adminClose").addEventListener("click",()=>$("#adminDlg").close());
 $("#syncNow").addEventListener("click",async()=>{await sync();openAdmin();$("#adminMsg").textContent="Готово: в очереди "+counts().queue});
 $("#exportCsv").addEventListener("click",()=>{
-  const cols=["receipt","created_at","device","event","source","gift","last_name","first_name","email","company","position","telegram","team_size","consent","synced","synced_at","id"];
+  const cols=["receipt","created_at","device","event","source","gift","full_name","email","company","position","telegram","team_size","consent","synced","synced_at","id"];
   const rows=[cols.join(";")].concat(load().map(r=>cols.map(c=>'"'+String(r[c]??"").replace(/"/g,'""')+'"').join(";")));
   const blob=new Blob(["﻿"+rows.join("\r\n")],{type:"text/csv;charset=utf-8"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`solar-fair-${device()}-${new Date().toISOString().slice(0,10)}.csv`;
