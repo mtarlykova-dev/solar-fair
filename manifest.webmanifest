@@ -1,0 +1,11 @@
+{
+  "name": "Осенняя ярмарка Solar Staff",
+  "short_name": "Ярмарка",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#16352F",
+  "theme_color": "#16352F",
+  "icons": [{"src": "icon.svg", "sizes": "any", "type": "image/svg+xml"}]
+}
