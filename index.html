@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#16352F">
+<meta name="theme-color" content="#2B3142">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg">
@@ -11,19 +11,23 @@
 <title>Осенняя ярмарка Solar Staff</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Manrope:wght@400;600;800&family=PT+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=PT+Mono&display=swap">
 <style>
-/* Layout: ночная ярмарка — тёмно-зелёный фон, крафтовые «ценники» на прилавке, касса и бумажный чек. Один экран за раз. */
+/* Layout: осенняя ярмарка в цветах гайдбука Solar Staff — Dark_grey фон, крафтовые «ценники» на прилавке, касса и бумажный чек. Один экран за раз. */
 :root{
-  --night:#16352F;      /* фон-ночь */
-  --night-2:#1E463E;    /* полосы навеса */
-  --kraft:#F2E2C0;      /* бумага/ценники */
-  --ink:#2A2118;        /* текст на бумаге */
-  --maple:#E2622B;      /* кленовый акцент */
-  --berry:#A8233B;      /* малина/глинтвейн */
-  --mustard:#E7B547;    /* облепиха */
-  --muted:#7A6A55;
-  --f-display:"Amatic SC","Marker Felt","Comic Sans MS",cursive;
+  --night:#2B3142;      /* Dark_grey — фон */
+  --night-2:#505B71;    /* Medium-grey */
+  --kraft:#F2ECE9;      /* Beige — бумага, форма */
+  --peach:#FEDEC7;      /* Light_orange — ценники */
+  --ink:#2B3142;        /* Dark_grey — текст на светлом */
+  --maple:#F3A08E;      /* Orange — осенний акцент */
+  --berry:#C2413B;      /* ошибки, штамп */
+  --mustard:#FEDEC7;    /* Light_orange — акцентный текст на тёмном */
+  --sky:#4CCBF2;        /* Blue_2 — знак логотипа, фокус */
+  --muted:#505B71;
+  --line:#ABB6C8;       /* Light-grey — рамки */
+  --cloud:#E7EEF6;      /* Cloudy-grey */
+  --f-display:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-mono:"PT Mono","Courier New",monospace;
   color-scheme:light;
@@ -44,25 +48,25 @@ input,label{-webkit-user-select:text;user-select:text}
              radial-gradient(circle at 24px -2px,var(--kraft) 13px,transparent 14px) 48px 0/96px 12px repeat-x}
 
 header.sign{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-top:18px}
-.logo{font:800 15px/1 var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--mustard);padding:8px 14px;border:1.5px solid var(--mustard);border-radius:999px;cursor:default;touch-action:none}
-h1{font:700 clamp(52px,9vw,96px)/.95 var(--f-display);margin:8px 0 0;color:var(--kraft);text-wrap:balance;letter-spacing:.01em}
+.logo{display:inline-flex;align-items:center;gap:12px;cursor:default;touch-action:none;-webkit-touch-callout:none;padding:4px}.logo-mark{width:56px;height:auto;display:block}.logo-word{font:800 30px/1 var(--f-body);letter-spacing:-.03em;color:#FFFFFF}
+h1{font:800 clamp(44px,7.5vw,80px)/1 var(--f-display);margin:10px 0 0;color:#FFFFFF;text-wrap:balance;letter-spacing:-.03em}
 h1 em{font-style:normal;color:var(--maple)}
-.sub{font:700 clamp(28px,4.4vw,40px)/1.1 var(--f-display);color:var(--mustard);margin:0}
-.why{max-width:60ch;margin:6px auto 0;color:#D9CBAA;font-size:17px}
+.sub{font:600 clamp(20px,2.8vw,26px)/1.25 var(--f-display);color:var(--maple);margin:0}
+.why{max-width:60ch;margin:6px auto 0;color:var(--cloud);font-size:17px}
 
 .screen[hidden]{display:none!important}
 .label{font:600 13px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--mustard);text-align:center}
 
 /* прилавок */
 .stall{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.tag{position:relative;background:var(--kraft);color:var(--ink);border:0;border-radius:6px 6px 14px 14px;padding:22px 18px 18px;
+.tag{position:relative;background:var(--peach);color:var(--ink);border:0;border-radius:6px 6px 14px 14px;padding:22px 18px 18px;
   display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:center;text-align:left;font:inherit;cursor:pointer;
   box-shadow:0 6px 0 rgba(0,0,0,.25);transition:transform .15s ease, box-shadow .15s ease}
 .tag::before{content:"";position:absolute;top:9px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--night);box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
 .tag:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
 .tag:focus-visible{outline:3px solid var(--mustard);outline-offset:3px}
 .tag svg{width:84px;height:84px}
-.tag h3{margin:0;font:700 34px/1 var(--f-display)}
+.tag h3{margin:0;font:800 22px/1.15 var(--f-display);letter-spacing:-.01em}
 .tag p{margin:4px 0 8px;font-size:15px;color:var(--muted)}
 .price{display:inline-flex;gap:8px;align-items:baseline;font:600 14px/1 var(--f-mono);border-top:1.5px dashed var(--muted);padding-top:8px}
 .price b{color:var(--berry);font-weight:400;font-size:16px}
@@ -70,74 +74,73 @@ h1 em{font-style:normal;color:var(--maple)}
 /* касса */
 .till{background:var(--kraft);color:var(--ink);border-radius:14px;padding:26px clamp(18px,4vw,36px);display:flex;flex-direction:column;gap:20px;box-shadow:0 8px 0 rgba(0,0,0,.25)}
 .till-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.till h2{margin:0;font:700 48px/1 var(--f-display)}
-.choice{display:flex;align-items:center;gap:10px;background:#E8D3A8;border-radius:999px;padding:6px 8px 6px 14px;font-weight:600;font-size:15px}
+.till h2{margin:0;font:800 30px/1.1 var(--f-display);letter-spacing:-.02em}
+.choice{display:flex;align-items:center;gap:10px;background:var(--cloud);border-radius:999px;padding:6px 8px 6px 14px;font-weight:600;font-size:15px}
 .choice button{border:0;background:var(--ink);color:var(--kraft);border-radius:999px;padding:6px 12px;font:600 13px var(--f-body);cursor:pointer}
 form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .f.wide{grid-column:1/-1}
 .f>label,.f legend{font-weight:600;font-size:15px}
-.f input[type=text],.f input[type=email]{font:500 19px var(--f-body);color:var(--ink);background:#FFF8EA;border:2px solid #CDB68A;border-radius:10px;padding:12px 14px;width:100%}
-.f input:focus{outline:none;border-color:var(--maple);box-shadow:0 0 0 3px rgba(226,98,43,.25)}
+.f input[type=text],.f input[type=email]{font:500 19px var(--f-body);color:var(--ink);background:#FFFFFF;border:2px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+.f input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(76,203,242,.3)}
 .f.err input{border-color:var(--berry)}
 .hint{font-size:13px;color:var(--berry);min-height:1em}
 fieldset{border:0;margin:0;padding:0}
-.seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+.seg{display:grid;grid-template-columns:1.6fr repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
 .seg input{position:absolute;opacity:0;pointer-events:none}
-.seg label{display:block;text-align:center;padding:12px 6px;border:2px solid #CDB68A;border-radius:10px;background:#FFF8EA;font-weight:600;cursor:pointer;font-variant-numeric:tabular-nums}
+.seg label{display:block;text-align:center;padding:12px 6px;border:2px solid var(--line);border-radius:10px;background:#FFFFFF;font-weight:600;cursor:pointer;font-variant-numeric:tabular-nums}
 .seg input:checked+label{background:var(--ink);border-color:var(--ink);color:var(--kraft)}
 .seg input:focus-visible+label{outline:3px solid var(--maple);outline-offset:2px}
-.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#4A3D2E}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted)}
 .consent input{width:26px;height:26px;flex:none;accent-color:var(--maple);margin:0}
 .linkish{background:none;border:0;padding:0;color:var(--berry);text-decoration:underline;font:inherit;cursor:pointer}
-.pay{grid-column:1/-1;border:0;border-radius:12px;padding:18px;font:700 34px/1 var(--f-display);background:var(--maple);color:#FFF6E6;cursor:pointer;box-shadow:0 5px 0 #A9441A}
-.pay:active{transform:translateY(3px);box-shadow:0 2px 0 #A9441A}
+.pay{grid-column:1/-1;border:0;border-radius:12px;padding:18px;font:800 22px/1 var(--f-display);background:var(--maple);color:var(--ink);cursor:pointer;box-shadow:0 5px 0 #D27E6C}
+.pay:active{transform:translateY(3px);box-shadow:0 2px 0 #D27E6C}
 .pay:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .form-error{grid-column:1/-1;color:var(--berry);font-weight:600;margin:0}
 
 /* чек */
 .receipt-wrap{display:flex;flex-direction:column;align-items:center;gap:22px}
-.receipt{width:min(420px,100%);background:#FFFDF6;color:var(--ink);font:15px/1.5 var(--f-mono);padding:26px 24px 34px;position:relative;
+.receipt{width:min(420px,100%);background:#FFFFFF;color:var(--ink);font:15px/1.5 var(--f-mono);padding:26px 24px 34px;position:relative;
   box-shadow:0 10px 0 rgba(0,0,0,.25);animation:print .7s ease-out both}
 .receipt::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;
-  background:linear-gradient(-45deg,transparent 8px,#FFFDF6 0) 0 0/16px 12px repeat-x,linear-gradient(45deg,transparent 8px,#FFFDF6 0) 0 0/16px 12px repeat-x}
+  background:linear-gradient(-45deg,transparent 8px,#FFFFFF 0) 0 0/16px 12px repeat-x,linear-gradient(45deg,transparent 8px,#FFFFFF 0) 0 0/16px 12px repeat-x}
 @keyframes print{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
-.receipt h2{font:700 40px/1 var(--f-display);text-align:center;margin:0 0 4px}
+.receipt h2{font:800 28px/1.1 var(--f-display);text-align:center;margin:0 0 4px}
 .receipt .c{text-align:center}
 .row{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
-.rule{border-top:1.5px dashed #B9A88A;margin:12px 0}
-.stamp{margin:16px auto 0;width:max-content;border:3px solid var(--berry);color:var(--berry);font:700 30px/1 var(--f-display);padding:6px 16px;transform:rotate(-6deg);border-radius:6px}
-.big-gift{font:700 clamp(44px,7vw,72px)/1 var(--f-display);color:var(--mustard);text-align:center;margin:0;text-wrap:balance}
-.note{color:#D9CBAA;text-align:center;margin:0;max-width:52ch}
+.rule{border-top:1.5px dashed var(--line);margin:12px 0}
+.stamp{margin:16px auto 0;width:max-content;border:3px solid var(--berry);color:var(--berry);font:800 18px/1 var(--f-display);text-transform:uppercase;letter-spacing:.08em;padding:8px 14px;transform:rotate(-6deg);border-radius:6px}
+.big-gift{font:800 clamp(30px,5vw,46px)/1.1 var(--f-display);letter-spacing:-.02em;color:#FFFFFF;text-align:center;margin:0;text-wrap:balance}
+.note{color:var(--cloud);text-align:center;margin:0;max-width:52ch}
 .ghost{border:2px solid var(--kraft);background:transparent;color:var(--kraft);border-radius:999px;padding:12px 22px;font:600 16px var(--f-body);cursor:pointer}
 
 /* сервисная панель */
 .dot{position:fixed;right:10px;bottom:10px;width:8px;height:8px;border-radius:50%;background:#5FA36A;opacity:.6;z-index:5}
 .dot.off{background:var(--mustard)}
 dialog{border:0;border-radius:14px;padding:0;max-width:min(560px,calc(100% - 32px));width:100%;background:var(--kraft);color:var(--ink)}
-dialog::backdrop{background:rgba(10,25,22,.7)}
+dialog::backdrop{background:rgba(40,50,66,.72)}
 .dlg{padding:22px;display:flex;flex-direction:column;gap:14px}
-.dlg h3{margin:0;font:700 34px/1 var(--f-display)}
+.dlg h3{margin:0;font:800 24px/1.1 var(--f-display)}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;text-align:center}
-.stats div{background:#FFF8EA;border-radius:10px;padding:10px}
+.stats div{background:#FFFFFF;border-radius:10px;padding:10px}
 .stats b{display:block;font:700 30px/1 var(--f-mono);font-variant-numeric:tabular-nums}
 .stats span{font-size:12px;color:var(--muted)}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btns button,.dlg .primary{border:0;border-radius:10px;padding:12px 16px;font:600 15px var(--f-body);background:var(--ink);color:var(--kraft);cursor:pointer}
-.btns .alt{background:#E2CFA6;color:var(--ink)}
+.btns .alt{background:var(--cloud);color:var(--ink)}
 .small{font-size:13px;color:var(--muted);margin:0}
-.dlg input{font:500 18px var(--f-body);padding:10px 12px;border:2px solid #CDB68A;border-radius:10px;background:#FFF8EA;width:100%}
+.dlg input{font:500 18px var(--f-body);padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:#FFFFFF;width:100%}
 .policy{max-height:50vh;overflow:auto;font-size:14px}
 
 @media (max-width:640px){
   .stall{grid-template-columns:minmax(0,1fr)}
   form{grid-template-columns:minmax(0,1fr)}
-  .seg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .seg{grid-template-columns:repeat(2,minmax(0,1fr))}.seg label[for=t0]{grid-column:1/-1}
   .tag{grid-template-columns:64px minmax(0,1fr)} .tag svg{width:64px;height:64px}
 }
 @media (prefers-reduced-motion:reduce){.receipt{animation:none}.tag{transition:none}}
-.alt-link{display:inline-flex;align-items:center;border-radius:10px;padding:12px 16px;font:600 15px var(--f-body);background:#E2CFA6;color:var(--ink);text-decoration:none}
-@media (min-width:641px){.stall{grid-template-columns:repeat(3,minmax(0,1fr))}.tag{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;padding-top:28px}}
+.alt-link{display:inline-flex;align-items:center;border-radius:10px;padding:12px 16px;font:600 15px var(--f-body);background:var(--cloud);color:var(--ink);text-decoration:none}
 </style>
 
 <canvas id="leaves" aria-hidden="true"></canvas>
@@ -145,8 +148,8 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
   <div class="awning" aria-hidden="true"></div>
 
   <header class="sign">
-    <div class="logo" id="logo" title="Solar Staff">Solar Staff</div>
-    <h1>Осенняя ярмарка <em>Solar&nbsp;Staff</em></h1>
+    <div class="logo" id="logo" role="img" aria-label="Solar Staff"><svg class="logo-mark" viewBox="0 0 200 104" aria-hidden="true"><g stroke="var(--sky)" stroke-width="14" fill="none"><path d="M17 37L65 69"/><path d="M66 4L84 55"/><path d="M133 4L115 55"/><path d="M0 97H55"/><path d="M143 97H200"/></g></svg><span class="logo-word">Solar Staff</span></div>
+    <h1>Осенняя ярмарка</h1>
     <p class="sub">Обмениваем контакт на тепло и дары</p>
     <p class="why" id="why">Оставьте контакт — пришлём полезное про работу с самозанятыми, ИП и зарубежными исполнителями: как платить легально, без лишних документов и рисков. А тёплый дар вручим прямо сейчас.</p>
   </header>
@@ -169,10 +172,11 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
         <div class="f"><label for="email">Email</label><input type="email" id="email" name="email" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="hint"></span></div>
         <div class="f"><label for="company">Компания</label><input type="text" id="company" name="company" autocomplete="off"><span class="hint"></span></div>
         <div class="f"><label for="position">Должность</label><input type="text" id="position" name="position" autocomplete="off"><span class="hint"></span></div>
-        <div class="f"><label for="telegram">Ник в Telegram <span style="font-weight:400;color:var(--muted)">(по желанию)</span></label><input type="text" id="telegram" name="telegram" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="@nickname"><span class="hint"></span></div>
+        <div class="f"><label for="telegram">Ник в Telegram</label><input type="text" id="telegram" name="telegram" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="@nickname"><span class="hint"></span></div>
         <fieldset class="f wide" id="teamSize">
           <legend>Сколько внештатных исполнителей в команде</legend>
           <div class="seg">
+            <input type="radio" name="team" id="t0" value="пока не работаем"><label for="t0">пока не работаем</label>
             <input type="radio" name="team" id="t1" value="до 10"><label for="t1">до 10</label>
             <input type="radio" name="team" id="t2" value="10–30"><label for="t2">10–30</label>
             <input type="radio" name="team" id="t3" value="30–50"><label for="t3">30–50</label>
@@ -241,7 +245,7 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
 <script>
 /* ===================== НАСТРОЙКИ ===================== */
 const CONFIG = {
-  SHEET_URL: "https://script.google.com/macros/s/AKfycbzm2tfNNa3OrV6gw1g7pAEDESTfMNlePIzRxEPxqzX3NSqhxJzNHF8JHYSc6W4p58me/exec",                         // ссылка веб-приложения Google Apps Script (заканчивается на /exec). Пусто = анкеты только на планшете
+  SHEET_URL: "",                         // ссылка веб-приложения Google Apps Script (заканчивается на /exec). Пусто = анкеты только на планшете
   EVENT: "Осенняя ярмарка Solar Staff",
   SOURCE_TAG: "event_autumn_fair_2026",  // тег/источник для CRM
   STAFF_PIN: "1407",
@@ -251,8 +255,9 @@ const CONFIG = {
 };
 const GIFTS = [
   {id:"mulled",  name:"Глинтвейн",        note:"Пряный, горячий, безалкогольный", color:"#A8233B", kind:"cup"},
-  {id:"buckthorn",name:"Облепиховый чай", note:"С мёдом и апельсином",           color:"#E7B547", kind:"cup"},
-  {id:"raspberry",name:"Малиновый чай",   note:"Как у бабушки на даче",          color:"#D0456A", kind:"cup"}
+  {id:"buckthorn",name:"Облепиховый чай", note:"С мёдом и апельсином",           color:"#F2A33A", kind:"cup"},
+  {id:"raspberry",name:"Малиновый чай",   note:"Как у бабушки на даче",          color:"#D0456A", kind:"cup"},
+  {id:"claw",    name:"Попытка в хватайке",note:"Достаньте подарок сами",         color:"#F3A08E", kind:"claw"}
 ];
 /* ===================================================== */
 
@@ -267,8 +272,8 @@ const uid=()=> (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Ma
 
 /* ---- иконки ---- */
 function icon(g){
-  if(g.kind==="claw") return `<svg viewBox="0 0 84 84" aria-hidden="true"><rect x="10" y="6" width="64" height="72" rx="8" fill="#2A2118"/><rect x="16" y="12" width="52" height="44" rx="4" fill="#CFE3DE"/><path d="M42 12v16" stroke="#2A2118" stroke-width="3"/><path d="M34 34l8-6 8 6M34 34l-2 7M50 34l2 7" stroke="#2A2118" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="30" cy="50" r="6" fill="${g.color}"/><circle cx="44" cy="51" r="5" fill="#E7B547"/><circle cx="56" cy="50" r="6" fill="#A8233B"/><rect x="18" y="62" width="20" height="8" rx="2" fill="${g.color}"/><circle cx="58" cy="66" r="5" fill="#E7B547"/></svg>`;
-  return `<svg viewBox="0 0 84 84" aria-hidden="true"><path d="M30 8c-4 6 4 8 0 14M42 6c-4 6 4 8 0 14M54 8c-4 6 4 8 0 14" stroke="#7A6A55" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M16 30h48l-5 40a8 8 0 0 1-8 7H29a8 8 0 0 1-8-7z" fill="#FFFDF6" stroke="#2A2118" stroke-width="3"/><path d="M18.5 40h43l-3.6 29a5 5 0 0 1-5 4.5H27a5 5 0 0 1-5-4.5z" fill="${g.color}"/><path d="M64 38h4a8 8 0 0 1 0 16h-6" fill="none" stroke="#2A2118" stroke-width="3"/></svg>`;
+  if(g.kind==="claw") return `<svg viewBox="0 0 84 84" aria-hidden="true"><rect x="10" y="6" width="64" height="72" rx="8" fill="#2B3142"/><rect x="16" y="12" width="52" height="44" rx="4" fill="#A1C5EE"/><path d="M42 12v16" stroke="#2B3142" stroke-width="3"/><path d="M34 34l8-6 8 6M34 34l-2 7M50 34l2 7" stroke="#2B3142" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="30" cy="50" r="6" fill="${g.color}"/><circle cx="44" cy="51" r="5" fill="#FEDEC7"/><circle cx="56" cy="50" r="6" fill="#A8233B"/><rect x="18" y="62" width="20" height="8" rx="2" fill="${g.color}"/><circle cx="58" cy="66" r="5" fill="#FEDEC7"/></svg>`;
+  return `<svg viewBox="0 0 84 84" aria-hidden="true"><path d="M30 8c-4 6 4 8 0 14M42 6c-4 6 4 8 0 14M54 8c-4 6 4 8 0 14" stroke="var(--muted)" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M16 30h48l-5 40a8 8 0 0 1-8 7H29a8 8 0 0 1-8-7z" fill="#FFFFFF" stroke="#2B3142" stroke-width="3"/><path d="M18.5 40h43l-3.6 29a5 5 0 0 1-5 4.5H27a5 5 0 0 1-5-4.5z" fill="${g.color}"/><path d="M64 38h4a8 8 0 0 1 0 16h-6" fill="none" stroke="#2B3142" stroke-width="3"/></svg>`;
 }
 
 /* ---- экраны ---- */
@@ -293,7 +298,7 @@ function validate(){
     if(n==="email"&&v&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v))m="Проверьте email — нужен формат name@company.ru";
     setErr(el,m);if(m)ok=false});
   const tg=form.telegram.value.trim().replace(/^@/,"");
-  if(tg&&!/^[A-Za-z0-9_]{4,32}$/.test(tg)){setErr(form.telegram,"Ник: латиница, цифры и _ (от 4 символов)");ok=false}else setErr(form.telegram,"");
+  if(!tg){setErr(form.telegram,"Заполните поле");ok=false}else if(!/^[A-Za-z0-9_]{4,32}$/.test(tg)){setErr(form.telegram,"Ник: латиница, цифры и _ (от 4 символов)");ok=false}else setErr(form.telegram,"");
   const team=form.querySelector("input[name=team]:checked");
   $("#teamSize .hint").textContent=team?"":"Выберите вариант";if(!team)ok=false;
   const c=$("#consent");c.closest(".f").querySelector(".hint").textContent=c.checked?"":"Без согласия мы не сможем сохранить контакт";if(!c.checked)ok=false;
@@ -333,7 +338,7 @@ function renderReceipt(r){
   <div class="rule"></div>
   <div class="row"><b>Покупатель</b><span>${esc(r.full_name)}</span></div>
   <div class="stamp">Тепло выдано</div>`;
-  $("#giftLine").textContent="Заберите ваш "+r.gift.toLowerCase();
+  $("#giftLine").textContent=r.gift==="Попытка в хватайке"?"Ваша попытка в хватайке ждёт":"Заберите ваш "+r.gift.toLowerCase();
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -397,7 +402,7 @@ if("serviceWorker" in navigator){try{navigator.serviceWorker.register("sw.js").c
 /* ---- кленовые листья ---- */
 (function(){
   const cv=$("#leaves"),ctx=cv.getContext("2d");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const cols=["#E2622B","#E7B547","#A8233B","#C9752E"];let W,H,leaves=[];
+  const cols=["#F3A08E","#FEDEC7","#E07A62","#F2ECE9"];let W,H,leaves=[];
   function size(){const d=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)}
   function mk(y){return{x:Math.random()*W,y:y??Math.random()*H,s:12+Math.random()*16,r:Math.random()*6.28,vr:(Math.random()-.5)*.02,vy:.3+Math.random()*.5,ph:Math.random()*6.28,c:cols[Math.random()*cols.length|0]}}
   function leaf(l){ctx.save();ctx.translate(l.x,l.y);ctx.rotate(l.r);ctx.scale(l.s/20,l.s/20);ctx.globalAlpha=.55;ctx.fillStyle=l.c;ctx.beginPath();

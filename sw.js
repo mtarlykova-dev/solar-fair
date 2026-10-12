@@ -1,6 +1,6 @@
 // Офлайн-кэш лендинга «Осенняя ярмарка Solar Staff».
 // При изменении index.html поднимите версию, чтобы планшеты забрали обновление.
-const VERSION = "fair-v3";
+const VERSION = "fair-v8";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", e => {
