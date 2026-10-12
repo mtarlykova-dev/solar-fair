@@ -137,6 +137,7 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
 }
 @media (prefers-reduced-motion:reduce){.receipt{animation:none}.tag{transition:none}}
 .alt-link{display:inline-flex;align-items:center;border-radius:10px;padding:12px 16px;font:600 15px var(--f-body);background:#E2CFA6;color:var(--ink);text-decoration:none}
+@media (min-width:641px){.stall{grid-template-columns:repeat(3,minmax(0,1fr))}.tag{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;padding-top:28px}}
 </style>
 
 <canvas id="leaves" aria-hidden="true"></canvas>
@@ -240,7 +241,7 @@ dialog::backdrop{background:rgba(10,25,22,.7)}
 <script>
 /* ===================== НАСТРОЙКИ ===================== */
 const CONFIG = {
-  SHEET_URL: "https://script.google.com/macros/s/AKfycbzm2tfNNa3OrV6gw1g7pAEDESTfMNlePIzRxEPxqzX3NSqhxJzNHF8JHYSc6W4p58me/exec",                         // ссылка веб-приложения Google Apps Script (заканчивается на /exec). Пусто = анкеты только на планшете
+  SHEET_URL: "",                         // ссылка веб-приложения Google Apps Script (заканчивается на /exec). Пусто = анкеты только на планшете
   EVENT: "Осенняя ярмарка Solar Staff",
   SOURCE_TAG: "event_autumn_fair_2026",  // тег/источник для CRM
   STAFF_PIN: "1407",
@@ -251,8 +252,7 @@ const CONFIG = {
 const GIFTS = [
   {id:"mulled",  name:"Глинтвейн",        note:"Пряный, горячий, безалкогольный", color:"#A8233B", kind:"cup"},
   {id:"buckthorn",name:"Облепиховый чай", note:"С мёдом и апельсином",           color:"#E7B547", kind:"cup"},
-  {id:"raspberry",name:"Малиновый чай",   note:"Как у бабушки на даче",          color:"#D0456A", kind:"cup"},
-  {id:"claw",    name:"Попытка в хватайке",note:"Достаньте игрушку сами",         color:"#E2622B", kind:"claw"}
+  {id:"raspberry",name:"Малиновый чай",   note:"Как у бабушки на даче",          color:"#D0456A", kind:"cup"}
 ];
 /* ===================================================== */
 
@@ -333,7 +333,7 @@ function renderReceipt(r){
   <div class="rule"></div>
   <div class="row"><b>Покупатель</b><span>${esc(r.full_name)}</span></div>
   <div class="stamp">Тепло выдано</div>`;
-  $("#giftLine").textContent=r.gift==="Попытка в хватайке"?"Ваша попытка в хватайке ждёт":"Заберите ваш "+r.gift.toLowerCase();
+  $("#giftLine").textContent="Заберите ваш "+r.gift.toLowerCase();
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
